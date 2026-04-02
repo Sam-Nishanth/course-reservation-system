@@ -1,14 +1,12 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Home() {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   if (user) {
-    navigate(`/${user.role}/dashboard`);
-    return null;
+    return <Navigate to={`/${user.role}/dashboard`} replace />;
   }
 
   return (

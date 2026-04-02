@@ -54,7 +54,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
           onClick={onClose}
           style={{
             position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)",
-            zIndex: 98, display: "none",
+            zIndex: 98,
           }}
           className="mobile-overlay"
         />
@@ -72,6 +72,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
         flexDirection: "column",
         zIndex: 99,
         transition: "transform 0.25s ease",
+        transform: mobileOpen ? "translateX(0)" : undefined,
         overflowY: "auto",
       }}>
         {/* Logo */}
