@@ -13,17 +13,17 @@ import RegisterTeacher from "./pages/RegisterTeacher";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import MyCourses from "./pages/student/MyCourses";
 import ViewCourses from "./pages/student/ViewCourses";
-import CourseDetail from "./pages/student/CourseDetail";
+import CourseDetail from "./pages/student/CourseDetailWorkflow";
 import LearningPage from "./pages/student/LearningPage";
-import PaymentPage from "./pages/student/PaymentPage";
+import PaymentPage from "./pages/student/PaymentPageWorkflow";
 import StudentSettings from "./pages/student/StudentSettings";
 
 // Teacher pages
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
-import ManageCourses from "./pages/teacher/ManageCourses";
-import AddCourse from "./pages/teacher/AddCourse";
-import EditCourse from "./pages/teacher/EditCourse";
-import TeacherCourseDetail from "./pages/teacher/TeacherCourseDetail";
+import ManageCourses from "./pages/teacher/ManageCoursesWorkflow";
+import AddCourse from "./pages/teacher/AddCourseWorkflow";
+import EditCourse from "./pages/teacher/EditCourseWorkflow";
+import TeacherCourseDetail from "./pages/teacher/TeacherCourseDetailWorkflow";
 import SeeStudents from "./pages/teacher/SeeStudents";
 import StudentProgress from "./pages/teacher/StudentProgress";
 import TeacherSettings from "./pages/teacher/TeacherSettings";
@@ -31,7 +31,7 @@ import TeacherSettings from "./pages/teacher/TeacherSettings";
 // Admin pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageUsers from "./pages/admin/ManageUsers";
-import AdminCourses from "./pages/admin/AdminCourses";
+import AdminCourses from "./pages/admin/AdminCoursesReview";
 import Analytics from "./pages/admin/Analytics";
 
 // Shared

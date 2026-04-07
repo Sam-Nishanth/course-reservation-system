@@ -1,16 +1,19 @@
 import os
 
+from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from bootstrap import seed_demo_data
 from config import Config
 from extensions import db, jwt
 from routes.auth import auth_bp
-from routes.courses import courses_bp
-from routes.enrollments import enrollments_bp
+from routes.course_workflow import courses_bp
+from routes.enrollment_status import enrollments_bp
 from routes.progress import progress_bp
-from routes.teacher import teacher_bp
-from routes.admin import admin_bp
+from routes.teacher_workflow import teacher_bp
+from routes.admin_review import admin_bp
+
+load_dotenv()
 
 
 def create_app():

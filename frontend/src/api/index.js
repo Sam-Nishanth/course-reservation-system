@@ -23,16 +23,22 @@ export const changePassword = (data) => api.put("/auth/change-password", data);
 export const getPublishedCourses = (params) => api.get("/courses/", { params });
 export const getCourse = (id) => api.get(`/courses/${id}`);
 export const getCategories = () => api.get("/courses/categories");
+export const getCourseChat = (id) => api.get(`/courses/${id}/chat`);
+export const sendCourseChat = (id, content) => api.post(`/courses/${id}/chat`, { content });
+export const clearCourseChat = (id) => api.delete(`/courses/${id}/chat`);
+export const createReservationOrder = (id) => api.post(`/courses/${id}/reserve/order`);
+export const verifyReservationPayment = (id, payload) => api.post(`/courses/${id}/reserve/verify`, payload);
 
 // ── Courses (Teacher) ────────────────────────────────────────────────────────
 export const getMyCourses = () => api.get("/courses/my-courses");
 export const createCourse = (data) => api.post("/courses/", data);
 export const updateCourse = (id, data) => api.put(`/courses/${id}`, data);
 export const deleteCourse = (id) => api.delete(`/courses/${id}`);
-export const togglePublish = (id) => api.patch(`/courses/${id}/publish`);
+export const submitCourseForReview = (id) => api.post(`/teacher/courses/${id}/submit-review`);
+export const createPublicationOrder = (id) => api.post(`/teacher/courses/${id}/publication/order`);
+export const verifyPublicationPayment = (id, payload) => api.post(`/teacher/courses/${id}/publication/verify`, payload);
 
 // ── Enrollments ──────────────────────────────────────────────────────────────
-export const enroll = (data) => api.post("/enrollments/enroll", data);
 export const getMyEnrollments = () => api.get("/enrollments/my-enrollments");
 export const getTransactions = () => api.get("/enrollments/transactions");
 export const checkEnrollment = (courseId) => api.get(`/enrollments/check/${courseId}`);
@@ -54,5 +60,10 @@ export const toggleUserActive = (id) => api.patch(`/admin/users/${id}/toggle-act
 export const deleteUser = (id) => api.delete(`/admin/users/${id}`);
 export const getAdminCourses = () => api.get("/admin/courses");
 export const adminDeleteCourse = (id) => api.delete(`/admin/courses/${id}`);
+export const getReviewCourses = (params) => api.get("/admin/courses/review", { params });
+export const getReviewCourse = (id) => api.get(`/admin/courses/${id}/review`);
+export const approveCourseReview = (id, payload) => api.post(`/admin/courses/${id}/approve`, payload);
+export const rejectCourseReview = (id, payload) => api.post(`/admin/courses/${id}/reject`, payload);
+export const requestCourseChanges = (id, payload) => api.post(`/admin/courses/${id}/request-changes`, payload);
 
 export default api;

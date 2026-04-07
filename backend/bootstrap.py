@@ -77,6 +77,7 @@ def seed_demo_data(reset=False):
             "prerequisites": "Basic computer knowledge",
             "learning_outcomes": "Write Python scripts\nAnalyze data\nCreate charts\nTrain simple ML models",
             "total_seats": 50,
+            "approval_status": "published",
             "is_published": True,
             "modules": [
                 {"week": 1, "title": "Python Basics", "notes": "Syntax, variables, and core data types."},
@@ -98,6 +99,7 @@ def seed_demo_data(reset=False):
             "prerequisites": "Basic HTML and CSS knowledge",
             "learning_outcomes": "Build React apps\nCreate APIs\nManage app state\nShip projects",
             "total_seats": 40,
+            "approval_status": "published",
             "is_published": True,
             "modules": [
                 {"week": 1, "title": "HTML and CSS Review", "notes": "Semantic HTML and modern CSS layouts."},
@@ -118,6 +120,7 @@ def seed_demo_data(reset=False):
             "prerequisites": "Python for Data Science or equivalent",
             "learning_outcomes": "Implement ML algorithms\nEvaluate models\nWork with real datasets",
             "total_seats": 25,
+            "approval_status": "pending_review",
             "is_published": False,
             "modules": [
                 {"week": 1, "title": "ML Fundamentals", "notes": "Bias, variance, and data preparation."},
@@ -141,7 +144,10 @@ def seed_demo_data(reset=False):
             prerequisites=course_data["prerequisites"],
             learning_outcomes=course_data["learning_outcomes"],
             total_seats=course_data["total_seats"],
+            approval_status=course_data["approval_status"],
             is_published=course_data["is_published"],
+            published_at=datetime.utcnow() if course_data["is_published"] else None,
+            submitted_at=datetime.utcnow() if course_data["approval_status"] == "pending_review" else None,
         )
         db.session.add(course)
         db.session.flush()
@@ -173,24 +179,28 @@ def seed_demo_data(reset=False):
         enrollment = Enrollment(
             student_id=student.id,
             course_id=course.id,
+            status="enrolled",
             payment_status="paid",
             enrolled_at=enrolled_at,
         )
         db.session.add(enrollment)
         db.session.flush()
 
-        db.session.add(
-            Payment(
-                enrollment_id=enrollment.id,
-                student_id=student.id,
-                course_id=course.id,
-                amount=course.price,
-                status="success",
-                transaction_id=f"TXN-{uuid.uuid4().hex[:12].upper()}",
-                payment_method="mock_card",
-                paid_at=enrolled_at,
-            )
+        payment = Payment(
+            user_id=student.id,
+            enrollment_id=enrollment.id,
+            course_id=course.id,
+            payment_type="student_reservation",
+            amount=course.price,
+            status="verified",
+            razorpay_order_id=f"order_demo_{uuid.uuid4().hex[:12]}",
+            razorpay_payment_id=f"pay_demo_{uuid.uuid4().hex[:12]}",
+            signature_verified=True,
+            verified_at=enrolled_at,
         )
+        db.session.add(payment)
+        db.session.flush()
+        enrollment.payment_id = payment.id
 
         for index, module in enumerate(course.modules):
             is_completed = index < modules_completed
